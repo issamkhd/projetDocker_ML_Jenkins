@@ -1,0 +1,46 @@
+---
+# based on the example at http://coderobot.downley.net/swagger-driven-testing-in-python.html
+
+swagger: '2.0'
+info:
+  title: Backend service API
+  version: "0.1"
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /service/{display_name}:
+    post:
+
+      operationId: backend_service.service
+      consumes:
+        - multipart/form-data
+      summary: predict genre
+      parameters:
+        - $ref: '#/parameters/display_name'
+        - $ref: '#/parameters/upfile'
+      responses:
+        200:
+          description: Return predicted genre
+          schema:
+            type: string
+
+parameters:
+  display_name:
+    name: display_name
+    description: Display Name of 
+    in: path
+    type: string
+    required: true
+    pattern: "^[a-zA-Z0-9-]+$"
+    x-example: 'jean'
+
+  upfile:
+    name: upfile
+    in: formData
+    type: file
+    required: true
+    description: the wav file to upload
+
